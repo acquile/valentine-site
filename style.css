@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-width: 320px;
+}
+
+.photo {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  color: #d6336c;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  position: relative;
+  height: 60px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  left: 40px;
+}
+
+#noBtn {
+  background: #adb5bd;
+  right: 40px;
+}
