@@ -2,67 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Will You Be My Valentine?</title>
+  <title>Will You Be My Valentine 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      background: #fff;
+      width: 90%;
+      max-width: 360px;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 15px;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       color: #b30059;
-      animation: pop 1s ease infinite alternate;
-    }
-
-    @keyframes pop {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
-    }
-
-    .buttons {
-      margin-top: 30px;
-      position: relative;
-      width: 100%;
-      height: 200px;
+      margin-bottom: 20px;
     }
 
     button {
-      font-size: 1.5rem;
-      padding: 12px 25px;
-      border-radius: 12px;
+      font-size: 1.2rem;
+      padding: 12px 26px;
       border: none;
+      border-radius: 999px;
       cursor: pointer;
-      position: absolute;
+      margin: 8px;
     }
 
     #yes {
       background: #ff4da6;
       color: white;
-      left: 40%;
-      top: 20px;
     }
 
     #no {
-      background: #555;
-      color: white;
-      left: 50%;
-      top: 100px;
+      background: #f2f2f2;
+      color: #333;
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
 
     .heart {
       position: absolute;
-      font-size: 20px;
+      font-size: 18px;
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -73,9 +76,12 @@
 </head>
 <body>
 
-  <h1>Will you be my Valentine? 💖</h1>
+  <div class="card">
+    <!-- 🔁 CHANGE THIS FILE NAME TO YOUR GIRLFRIEND'S PHOTO -->
+    <img src="her.jpg" alt="Us 💕">
 
-  <div class="buttons">
+    <h1>Will you be my Valentine? 💖</h1>
+
     <button id="yes">Yes 💕</button>
     <button id="no">No 😅</button>
   </div>
@@ -88,39 +94,36 @@
     const yesSound = document.getElementById("yesSound");
 
     function moveNoButton() {
-      const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     }
 
-    // Desktop hover
     noBtn.addEventListener("mouseover", moveNoButton);
-
-    // Mobile touch
-    noBtn.addEventListener("touchstart", moveNoButton);
+    noBtn.addEventListener("touchstart", e => {
+      e.preventDefault();
+      moveNoButton();
+    });
 
     yesBtn.addEventListener("click", () => {
       yesSound.play();
-      document.body.innerHTML = "<h1 style='margin-top:200px;color:#b30059;'>Yay!! 💕 I knew it 😘</h1>";
+      document.body.innerHTML = "<h1 style='margin-top:40vh;color:#b30059;text-align:center;'>She said YES!! 💕🥰</h1>";
     });
 
     // Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
-      heart.classList.add("heart");
+      heart.className = "heart";
       heart.innerText = "💖";
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (15 + Math.random() * 20) + "px";
+      heart.style.fontSize = (14 + Math.random() * 20) + "px";
       heart.style.animationDuration = (4 + Math.random() * 3) + "s";
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
+      setTimeout(() => heart.remove(), 6000);
     }
 
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 350);
   </script>
 
 </body>
