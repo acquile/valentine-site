@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be My Valentine?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: pink;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 100px;
+      font-size: 3rem;
+      color: #b30059;
+    }
+
+    .buttons {
+      margin-top: 50px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background-color: #ff4da6;
+      color: white;
+    }
+
+    #no {
+      background-color: #555;
+      color: white;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClicked()">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    function yesClicked() {
+      document.body.innerHTML = "<h1 style='margin-top:200px;'>Yay!! 💕 I knew it 😘</h1>";
+    }
+  </script>
+
+</body>
+</html>
