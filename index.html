@@ -2,62 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Will You Be My Valentine 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .card {
-      background: #fff;
-      width: 90%;
-      max-width: 360px;
-      border-radius: 20px;
-      padding: 20px;
+      flex-direction: column;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      position: relative;
-    }
-
-    .card img {
-      width: 100%;
-      border-radius: 14px;
-      margin-bottom: 15px;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: #b30059;
-      margin-bottom: 20px;
+      padding: 0 15px;
+      animation: pop 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.06); }
+    }
+
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+      width: 100%;
+      height: 220px;
     }
 
     button {
-      font-size: 1.2rem;
-      padding: 12px 26px;
+      font-size: 1.4rem;
+      padding: 14px 26px;
+      border-radius: 14px;
       border: none;
-      border-radius: 999px;
       cursor: pointer;
-      margin: 8px;
+      position: absolute;
+      touch-action: manipulation;
     }
 
     #yes {
       background: #ff4da6;
       color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 20px;
     }
 
     #no {
-      background: #f2f2f2;
-      color: #333;
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      background: #555;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 120px;
     }
 
     .heart {
@@ -76,12 +79,9 @@
 </head>
 <body>
 
-  <div class="card">
-    <!-- 🔁 CHANGE THIS FILE NAME TO YOUR GIRLFRIEND'S PHOTO -->
-    <img src="her.jfif" alt="Us 💕">
+  <h1>Will you be my Valentine? 💖</h1>
 
-    <h1>Will you be my Valentine? 💖</h1>
-
+  <div class="buttons">
     <button id="yes">Yes 💕</button>
     <button id="no">No 😅</button>
   </div>
@@ -94,28 +94,29 @@
     const yesSound = document.getElementById("yesSound");
 
     function moveNoButton() {
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
     }
 
+    // Desktop
     noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("touchstart", e => {
+
+    // Mobile – dodge before tap
+    noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveNoButton();
     });
 
     yesBtn.addEventListener("click", () => {
       yesSound.play();
-      document.body.innerHTML = "<h1 style='margin-top:40vh;color:#b30059;text-align:center;'>She said YES!! 💕🥰</h1>";
+      document.body.innerHTML = "<h1 style='margin-top:40vh;color:#b30059;'>Yay!! 💕 I knew it 😘</h1>";
     });
 
     // Floating hearts
@@ -127,6 +128,7 @@
       heart.style.fontSize = (14 + Math.random() * 20) + "px";
       heart.style.animationDuration = (4 + Math.random() * 3) + "s";
       document.body.appendChild(heart);
+
       setTimeout(() => heart.remove(), 6000);
     }
 
