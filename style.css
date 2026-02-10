@@ -9,11 +9,15 @@ body {
 }
 
 .card {
-  width: 90vw;          /* takes up most of the screen */
-  max-width: 420px;     /* keeps it nice on larger screens */
-  padding: 20px;
+  background: white;
+  padding: 30px;
   border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-width: 420px;     /* 🔼 Bigger on desktop */
+  width: 90%;          /* 📱 Fits nicely on mobile */
 }
+
 
 .photo {
   width: 100%;
