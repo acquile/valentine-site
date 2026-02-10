@@ -19,8 +19,13 @@ body {
 
 .photo {
   width: 100%;
-  border-radius: 15px;
+  max-width: 300px;   /* 🔼 Increase this for bigger photo */
+  height: auto;
+  border-radius: 16px;
   margin-bottom: 15px;
+  animation: popIn 0.8s ease-out;
+}
+
 }
 
 h1 {
