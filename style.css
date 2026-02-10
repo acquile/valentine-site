@@ -57,9 +57,14 @@ button {
   left: 40px;
 }
 
-#noBtn {
-  background: #adb5bd;
-  right: 40px;
+.no-button {
+  width: 120px;       /* fixed width */
+  height: 50px;       /* fixed height */
+  font-size: 1.2rem;  /* optional */
+  position: relative; /* initial position */
+  transition: all 0.2s ease;
+}
+
 }
 /* 💋 Kiss photo animation */
 .photo {
