@@ -19,11 +19,14 @@ body {
 
 .photo {
   width: 100%;
-  max-width: 300px;   /* 🔼 Increase this for bigger photo */
-  height: auto;
+  max-width: 350px;        /* Big but controlled */
+  height: 350px;          /* 🔒 Fixed height prevents shifting */
+  object-fit: cover;      /* Crop nicely without stretching */
   border-radius: 16px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
+}
+
 }
 
 }
