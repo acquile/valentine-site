@@ -35,5 +35,24 @@
     <h1>I love you so much! 💖</h1>
     <p>You’re my forever Valentine 💕</p>
   </div>
+
+  <!-- audio -->
+  <audio id="yesSound" preload="auto" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sound = document.getElementById("yesSound");
+
+      // Example: automatically allow music for now
+      localStorage.setItem("playMusic", "true");
+
+      if (localStorage.getItem("playMusic") === "true") {
+        sound.currentTime = 0;
+        sound.play().catch(err => console.log("Autoplay blocked:", err));
+      }
+    });
+  </script>
 </body>
 </html>
