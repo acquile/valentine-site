@@ -21,12 +21,9 @@ body {
   width: 100%;
   position: relative;
   z-index: 10;
-
-  overflow: hidden;      /* Added: prevent button overflow causing scroll */
-  height: 520px;         /* Added: fixed height to keep stable layout */
-  box-sizing: border-box; /* Added for consistent sizing */
+  box-sizing: border-box;
+  /* Fixed height removed for flexibility */
 }
-
 
 .photo {
   width: 100%;
@@ -53,6 +50,7 @@ p {
   position: relative;
   height: 80px;
   margin-top: 20px;
+  overflow: hidden; /* ✅ Prevent No button from pushing layout */
 }
 
 .buttons button {
@@ -66,6 +64,7 @@ p {
   font-family: 'Dancing Script', cursive;
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  top: 15px; /* keeps buttons vertically aligned */
 }
 
 /* YES button */
@@ -73,7 +72,6 @@ p {
   background: linear-gradient(45deg, #ff4d6d, #ff758f);
   color: white;
   left: 20px;
-  top: 15px;
 }
 
 /* NO button */
@@ -81,7 +79,6 @@ p {
   background: linear-gradient(45deg, #adb5bd, #ced4da);
   color: white;
   right: 20px;
-  top: 15px;
 }
 
 /* 💋 Photo animation */
