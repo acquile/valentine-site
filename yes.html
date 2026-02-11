@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- ✅ VERY IMPORTANT FOR MOBILE -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Forever 💋</title>
 
   <!-- 💖 Romantic Fonts -->
@@ -14,22 +10,42 @@
   <link rel="stylesheet" href="style.css" />
 
   <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+</head>
+
+<body>
+  <div class="card">
+    <img src="yes.jfif" alt="Us kissing" class="photo" />
+
+    <h1>I love you so much! 💖</h1>
+    <p>You’re my forever Valentine 💕</p>
+  </div>
+
+  <!-- audio -->
+  <audio id="yesSound" preload="auto" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💗";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 7000);
-      }
-
-      setInterval(createHeart, 400);
-
-      // 🎵 Music
       const sound = document.getElementById("yesSound");
+
+      // Example: automatically allow music for now
       localStorage.setItem("playMusic", "true");
 
       if (localStorage.getItem("playMusic") === "true") {
@@ -38,17 +54,5 @@
       }
     });
   </script>
-</head>
-
-<body>
-  <div class="card">
-    <img src="yes.jfif" alt="Us kissing" class="photo" />
-    <h1>I love you so much! 💖</h1>
-    <p>You’re my forever Valentine 💕</p>
-  </div>
-
-  <audio id="yesSound" preload="auto" loop>
-    <source src="love.mp3" type="audio/mpeg">
-  </audio>
 </body>
 </html>
