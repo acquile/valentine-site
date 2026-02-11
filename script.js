@@ -1,20 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const card = document.getElementById("mainCard");
   const music = document.getElementById("bgMusic");
 
-  // 😈 Make NO button run away above the card
+  // 😈 NO button moves anywhere in viewport and always visible
   function moveButton() {
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
-    const cardRect = card.getBoundingClientRect();
 
-    // Random X anywhere in the window
     const randomX = Math.random() * (window.innerWidth - btnWidth);
-
-    // Random Y above the card, not too high (min 10px)
-    const randomY = Math.random() * Math.max(cardRect.top - btnHeight - 10, 10);
+    const randomY = Math.random() * (window.innerHeight - btnHeight - 20); // not too close to bottom
 
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
