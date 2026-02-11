@@ -1,17 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
-  const sound = document.getElementById("yesSound");
 
-  // ✅ YES = play sound then redirect
-  yesBtn.addEventListener("click", () => {
-    sound.currentTime = 0;
-    sound.play();
-
-    setTimeout(() => {
-      window.location.href = "yes.html";
-    }, 1500); // let music play first
-  });
+  // ❌ Remove redirect here — handled in HTML now
+  // yesBtn.addEventListener("click", () => {
+  //   window.location.href = "yes.html";
+  // });
 
   // 😈 NO button runs away
   noBtn.addEventListener("mouseover", moveNoButton);
@@ -34,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 💥 Shake animation
     noBtn.classList.remove("shake");
-    void noBtn.offsetWidth; // restart animation
+    void noBtn.offsetWidth;
     noBtn.classList.add("shake");
   }
 });
