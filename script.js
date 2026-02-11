@@ -10,10 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouseY = e.clientY;
 
     const offset = 100; // distance from cursor before button moves
-
     const btnCenterX = btnRect.left + btnRect.width / 2;
     const btnCenterY = btnRect.top + btnRect.height / 2;
-
     const dx = mouseX - btnCenterX;
     const dy = mouseY - btnCenterY;
     const distance = Math.sqrt(dx * dx + dy * dy);
@@ -31,10 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Prevent accidental clicks on No button
   noBtn.addEventListener("click", (e) => e.preventDefault());
 
-  // 💕 YES button plays music instantly and navigates
+  // 💕 YES button plays music and navigates
   yesBtn.addEventListener("click", () => {
-    music.currentTime = 0;
-    music.play().catch(() => {}); // play immediately on click
+    // Save that music should play on Yes page
+    localStorage.setItem("playMusic", "true");
+
+    // Navigate to Yes page
     window.location.href = "yes.html";
   });
 });
