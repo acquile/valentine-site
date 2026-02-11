@@ -1,63 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const music = document.getElementById("bgMusic"); // background music
-  const noSound = new Audio("no.mp3"); // sound when No is clicked (optional)
 
-  // ✅ Play music once on any user interaction (mobile autoplay)
-  function playMusicOnce() {
-    if (!music.played.length) {
-      music.currentTime = 0;
-      music.play().catch(() => console.log("Autoplay blocked"));
-    }
-    document.removeEventListener("click", playMusicOnce);
-    document.removeEventListener("touchstart", playMusicOnce);
+  // Function to move the No button randomly
+  function dodgeNoButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20; // prevent going offscreen
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    
+    // Random position within screen bounds
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    noBtn.style.transition = "transform 0.3s ease"; // smooth movement
+    noBtn.style.transform = `translate(${randomX - noBtn.offsetLeft}px, ${randomY - noBtn.offsetTop}px)`;
   }
 
-  document.addEventListener("click", playMusicOnce);
-  document.addEventListener("touchstart", playMusicOnce);
-
-  // NO button dodge logic (desktop + mobile)
-  document.addEventListener("mousemove", e => moveNoButton(e.clientX, e.clientY));
-  document.addEventListener("touchmove", e => {
-    if(e.touches.length > 0){
-      const touch = e.touches[0];
-      moveNoButton(touch.clientX, touch.clientY);
-    }
-  });
-
-  function moveNoButton(x, y){
-    const btnRect = noBtn.getBoundingClientRect();
-    const offset = 100;
-    const btnCenterX = btnRect.left + btnRect.width/2;
-    const btnCenterY = btnRect.top + btnRect.height/2;
-    const dx = x - btnCenterX;
-    const dy = y - btnCenterY;
-    const distance = Math.sqrt(dx*dx + dy*dy);
-
-    if(distance < offset){
-      const moveX = -dx/distance * 80;
-      const moveY = -dy/distance * 40;
-      noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    } else {
-      noBtn.style.transform = "translate(0,0)";
-    }
-  }
-
-  // NO button click (plays sound but does NOT trigger Yes music)
+  // NO button click - dodges randomly
   noBtn.addEventListener("click", e => {
-    e.preventDefault(); // prevent accidental click
-    noSound.currentTime = 0;
-    noSound.play().catch(() => console.log("No sound blocked"));
+    e.preventDefault();
+    dodgeNoButton();
   });
 
-  // 💕 YES button: play music immediately and navigate to Yes page
+  // Also allow mobile touch
+  noBtn.addEventListener("touchstart", e => {
+    e.preventDefault();
+    dodgeNoButton();
+  });
+
+  // 💕 YES button: navigate to Yes page and start music there
   yesBtn.addEventListener("click", () => {
-    music.currentTime = 0;
-    music.play().catch(() => console.log("Autoplay blocked"));
-    localStorage.setItem("playMusic", "true"); // flag to continue on Yes page
+    localStorage.setItem("playMusic", "true"); // flag to start music on Yes page
     setTimeout(() => {
       window.location.href = "yes.html";
-    }, 50); // slight delay to ensure music starts
+    }, 50);
   });
 });
