@@ -3,17 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const music = document.getElementById("bgMusic");
 
-  // ✅ YES button
+  // YES button
   yesBtn.addEventListener("click", () => {
+    // Ensure audio is ready
+    music.loop = true;
     music.volume = 1;
     music.muted = false;
 
+    // Play music on click (user interaction satisfies Chrome autoplay rules)
     music.play().catch(err => console.log("Play failed:", err));
 
-    // Hide first card
-    document.getElementById("mainCard").style.display = "none";
+    // Hide the first card
+    const mainCard = document.getElementById("mainCard");
+    mainCard.style.display = "none";
 
-    // Create new card safely (no innerHTML rewrite!)
+    // Create the "I love you" card safely
     const newCard = document.createElement("div");
     newCard.className = "card";
 
@@ -25,10 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.appendChild(newCard);
 
+    // Start floating hearts
     startHearts();
   });
 
-  // 😈 NO button runs away
+  // NO button runs away
   noBtn.addEventListener("mouseover", moveNoButton);
   noBtn.addEventListener("click", moveNoButton);
 
@@ -42,26 +47,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
-
-    noBtn.style.position = "absolute";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-  }
-
-  // 💖 Floating hearts
-  function startHearts() {
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 7000);
-    }, 400);
-  }
-});
