@@ -1,120 +1,133 @@
-body {
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  background: linear-gradient(-45deg, #ffd6e0, #ffeaf4, #ffd1dc, #fff0f5);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .card {
   background: white;
+  width: 380px;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 25px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  max-width: 420px;     /* 🔼 Bigger on desktop */
-  width: 90%;          /* 📱 Fits nicely on mobile */
+  box-shadow: 0 20px 40px rgba(255, 105, 135, 0.2);
+  animation: fadeIn 1.5s ease forwards;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
 }
 
+.card:hover {
+  transform: translateY(-8px);
+}
 
-.photo {
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.photo img {
   width: 100%;
-  height: 360px;        /* Big visible photo on mobile */
-  object-fit: cover;
-  border-radius: 16px;
-  margin-bottom: 15px;
-  animation: popIn 0.8s ease-out;
-}
-
-}
-
-}
-
-h1 {
-  color: #d6336c;
+  border-radius: 20px;
   margin-bottom: 20px;
 }
 
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ff8fab; }
+  to { text-shadow: 0 0 20px #ff8fab; }
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
 .buttons {
-  position: relative;
-  height: 60px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 20px;
   cursor: pointer;
-  position: absolute;
-}
-
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-  left: 40px;
-}
-
-.no-button {
-  width: 120px;       /* fixed width */
-  height: 50px;       /* fixed height */
-  font-size: 1.2rem;  /* optional */
-  position: relative; /* initial position */
+  font-weight: 500;
   transition: all 0.2s ease;
 }
 
-}
-/* 💋 Kiss photo animation */
-.photo {
-  width: 100%;
-  border-radius: 16px;
-  animation: popIn 0.8s ease-out;
+#yesBtn {
+  background: #ff6b9e;
+  color: white;
 }
 
-@keyframes popIn {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+#yesBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 105, 135, 0.4);
 }
 
-/* 💗 Floating hearts */
+#noBtn {
+  background: #f3f3f3;
+}
+
+.success-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to top, #ffd1dc, #fff0f5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+  z-index: 3;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Floating Hearts */
 .heart {
   position: fixed;
   bottom: -20px;
-  font-size: 24px;
-  animation: floatUp 6s linear forwards;
-  pointer-events: none;
+  font-size: 18px;
+  animation: floatUp linear forwards;
+  opacity: 0.7;
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh) scale(1.5);
+  to {
+    transform: translateY(-100vh);
     opacity: 0;
   }
 }
-
-/* 😈 Shake animation for No button */
-.shake {
-  animation: shake 0.25s infinite;
-}
-
-@keyframes shake {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-3px, 2px); }
-  50% { transform: translate(3px, -2px); }
-  75% { transform: translate(-2px, -3px); }
-  100% { transform: translate(0, 0); }
-}
-
-
