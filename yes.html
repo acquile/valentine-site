@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- ✅ IMPORTANT FOR MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Forever 💋</title>
@@ -32,22 +31,12 @@
     <p>You’re my forever Valentine 💕</p>
   </div>
 
-  <!-- audio -->
+  <!-- 🎵 Audio (played by script.js from YES click) -->
   <audio id="yesSound" preload="auto" loop>
     <source src="love.mp3" type="audio/mpeg">
   </audio>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const sound = document.getElementById("yesSound");
-
-      localStorage.setItem("playMusic", "true");
-
-      if (localStorage.getItem("playMusic") === "true") {
-        sound.currentTime = 0;
-        sound.play().catch(err => console.log("Autoplay blocked:", err));
-      }
-    });
-  </script>
+  <!-- 🔗 Use the SAME script.js -->
+  <script src="script.js"></script>
 </body>
 </html>
