@@ -2,52 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- ✅ IMPORTANT FOR MOBILE -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine 💖</title>
 
-  <title>Forever 💋</title>
-
-  <!-- 💖 Romantic Fonts -->
+  <!-- Romantic Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
-
-  <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 7000);
-    }
-    setInterval(createHeart, 400);
-  </script>
 </head>
-
 <body>
-  <div class="card">
-    <img src="yes.jfif" alt="Us kissing" class="photo" />
-    <h1>I love you so much! 💖</h1>
-    <p>You’re my forever Valentine 💕</p>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
+
+  <div class="card" id="mainCard">
+    <img src="her.jfif" alt="Us" class="photo" />
+    <h1>Hi Tet, Will you be my Valentine? 💗</h1>
+
+    <div class="buttons">
+      <button id="yesBtn" class="yes">Yes 💕</button>
+      <button id="noBtn" class="no">No 😅</button>
+    </div>
   </div>
 
-  <!-- audio -->
-  <audio id="yesSound" preload="auto" loop>
-    <source src="love.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const sound = document.getElementById("yesSound");
-
-      localStorage.setItem("playMusic", "true");
-
-      if (localStorage.getItem("playMusic") === "true") {
-        sound.currentTime = 0;
-        sound.play().catch(err => console.log("Autoplay blocked:", err));
-      }
-    });
-  </script>
+  <!-- External JS -->
+  <script src="script.js"></script>
 </body>
 </html>
