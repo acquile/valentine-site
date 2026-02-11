@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const music = document.getElementById("bgMusic");
 
-  // YES button
+  // YES button click handler
   yesBtn.addEventListener("click", () => {
     // Play music
     music.volume = 1;
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Remove the original card (includes NO button)
     const mainCard = document.getElementById("mainCard");
-    mainCard.remove();
+    if (mainCard) mainCard.remove();
 
     // Create the "I love you" card
     const newCard = document.createElement("div");
@@ -27,64 +27,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.appendChild(newCard);
 
-    // Start floating hearts
+    // Start floating hearts animation
     startHearts();
   });
 
-  // NO button dodging
-  noBtn.addEventListener("mouseover", moveNoButton);
-  noBtn.addEventListener("click", moveNoButton);
+  // NO button dodging on hover and click
+  noBtn.addEventListener("mouseover", (event) => moveNoButton(event.target));
+  noBtn.addEventListener("click", (event) => moveNoButton(event.target));
 
-  function moveNoButton() {
+  function moveNoButton(button) {
     const card = document.getElementById("mainCard");
-    if (!card) return; // stop if card is gone
+    if (!card) return; // Stop if card is gone (after YES clicked)
 
-    // Use stable button size to prevent resizing
-    const btnWidth = this.offsetWidth;
-    const btnHeight = this.offsetHeight;
+    const btnWidth = button.offsetWidth;
+    const btnHeight = button.offsetHeight;
 
     const cardRect = card.getBoundingClientRect();
     const padding = 10;
 
+    // Calculate max left/top within card boundaries minus padding and button size
     const maxX = cardRect.width - btnWidth - padding;
     const maxY = cardRect.height - btnHeight - padding;
 
+    // Random position inside card boundaries
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
 
-    this.style.position = "absolute";
-    this.style.left = randomX + "px";
-    this.style.top = randomY + "px";
+    // Set fixed size explicitly to prevent resizing flicker
+    button.style.width = btnWidth + "px";
+    button.style.height = btnHeight + "px";
 
-    // Shake animation
-    this.classList.remove("shake");
-    void this.offsetWidth;
-    this.classList.add("shake");
+    button.style.position = "absolute";
+    button.style.left = randomX + "px";
+    button.style.top = randomY + "px";
+
+    // Restart shake animation for fun
+    button.classList.remove("shake");
+    void button.offsetWidth; // Trigger reflow for restart
+    button.classList.add("shake");
   }
 
-  // Floating hearts behind the card
+  // Floating hearts animation
   function startHearts() {
     setInterval(() => {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       heart.innerHTML = "💗";
 
-      // Random horizontal position
+      // Random horizontal position across viewport width
       heart.style.left = Math.random() * 100 + "vw";
 
-      // Random size
-      const size = Math.random() * 24 + 16; // 16px to 40px
+      // Random font size from 16px to 40px
+      const size = Math.random() * 24 + 16;
       heart.style.fontSize = size + "px";
 
-      // Random animation duration
+      // Random animation duration between 4s and 7s
       heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
 
-      // Slight transparency
-      heart.style.opacity = (Math.random() * 0.5 + 0.5);
+      // Slightly random opacity for subtle effect
+      heart.style.opacity = (Math.random() * 0.5 + 0.5).toString();
 
       document.body.appendChild(heart);
 
-      // Remove after animation
+      // Remove heart after animation completes (7 seconds)
       setTimeout(() => heart.remove(), 7000);
     }, 400);
   }
