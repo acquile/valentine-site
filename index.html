@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="card">
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
+
+  <div class="card" id="mainCard">
     <img src="her.jfif" alt="Us" class="photo" />
 
     <h1>Hi Tet, Will you be my Valentine? 💗</h1>
@@ -21,22 +25,68 @@
     </div>
   </div>
 
-  <!-- 🎵 Audio -->
-  <audio id="yesSound" src="love.mp3"></audio>
-
-  <!-- 🎶 Yes button sound + redirect -->
   <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const sound = document.getElementById("yesSound");
+    document.addEventListener("DOMContentLoaded", () => {
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const music = document.getElementById("bgMusic");
 
-    yesBtn.addEventListener("click", () => {
-      sound.play();
-      setTimeout(() => {
-        window.location.href = "yes.html";
-      }, 1500);
+      // YES button
+      yesBtn.addEventListener("click", () => {
+        music.play();
+
+        // Replace page content instead of redirecting
+        document.body.innerHTML += `
+          <div class="card">
+            <img src="yes.jfif" alt="Us kissing" class="photo" />
+            <h1>I love you so much! 💖</h1>
+            <p>You’re my forever Valentine 💕</p>
+          </div>
+        `;
+
+        document.getElementById("mainCard").remove();
+
+        startHearts();
+      });
+
+      // NO button runs away
+      noBtn.addEventListener("mouseover", moveNoButton);
+      noBtn.addEventListener("click", moveNoButton);
+
+      function moveNoButton() {
+        const card = document.querySelector(".card");
+        const cardRect = card.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+
+        const maxX = cardRect.width - btnRect.width - 10;
+        const maxY = cardRect.height - btnRect.height - 10;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        noBtn.style.position = "absolute";
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+      }
+
+      // Floating hearts
+      function startHearts() {
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML = "💗";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 7000);
+        }, 400);
+      }
     });
   </script>
 
-  <script src="script.js"></script>
 </body>
 </html>
