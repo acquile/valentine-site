@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bgMusic");
 
   // 😈 Make NO button run away inside card boundaries
-  noBtn.addEventListener("touchstart", moveButton);
-  noBtn.addEventListener("mouseover", moveButton);
-
   function moveButton() {
     const maxX = card.clientWidth - noBtn.offsetWidth;
     const maxY = card.clientHeight - noBtn.offsetHeight;
@@ -18,13 +15,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-    noBtn.style.right = "auto";
+    noBtn.style.right = "auto"; // clear right to avoid conflicts
   }
+
+  // Trigger move on hover and touch
+  noBtn.addEventListener("mouseover", moveButton);
+  noBtn.addEventListener("touchstart", moveButton);
+
+  // Prevent No button from being clicked
+  noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
 
   // 💕 YES button plays music and navigates to yes.html
   yesBtn.addEventListener("click", () => {
+    music.currentTime = 0;
     music.play().catch(() => {});
-    window.location.href = "yes.html";
+
+    // Slight delay to ensure audio plays
+    setTimeout(() => {
+      window.location.href = "yes.html";
+    }, 200);
   });
 
 });
