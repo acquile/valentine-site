@@ -4,40 +4,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const card = document.getElementById("mainCard");
   const music = document.getElementById("bgMusic");
 
-  // 😈 Make NO button run away inside card boundaries
-  noBtn.addEventListener("mouseover", moveButton);
-  noBtn.addEventListener("touchstart", moveButton);
-
+  // 😈 Make NO button run away above the card
   function moveButton() {
-    const padding = 10; // keep button inside edges
-    const noBtnWidth = noBtn.offsetWidth;
-    const noBtnHeight = noBtn.offsetHeight;
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+    const cardRect = card.getBoundingClientRect();
 
-    // Define vertical movement area: below photo, above bottom of card
-    const photo = card.querySelector(".photo");
-    const h1 = card.querySelector("h1");
-    const minY = photo.offsetHeight + h1.offsetHeight + 20; // 20px padding
-    const maxY = card.clientHeight - noBtnHeight - padding;
+    // Random X anywhere in the window
+    const randomX = Math.random() * (window.innerWidth - btnWidth);
 
-    // Horizontal movement: inside card
-    const maxX = card.clientWidth - noBtnWidth - padding;
-
-    const randomX = Math.random() * maxX + padding;
-    const randomY = Math.random() * (maxY - minY) + minY;
+    // Random Y above the card, not too high (min 10px)
+    const randomY = Math.random() * Math.max(cardRect.top - btnHeight - 10, 10);
 
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-    noBtn.style.right = "auto";
-    noBtn.style.zIndex = 20; // always above photo
+    noBtn.style.right = "auto"; // reset right
   }
 
-  // 💕 YES button plays music only when clicked and navigates to yes.html
+  noBtn.addEventListener("mouseover", moveButton);
+  noBtn.addEventListener("touchstart", moveButton);
+
+  // 💕 YES button plays music only on click
   yesBtn.addEventListener("click", () => {
     music.currentTime = 0;
-    music.play().catch(() => {}); // play only when clicked
+    music.play().catch(() => {});
     window.location.href = "yes.html";
   });
-
-  // Optional: prevent No button from being clicked
-  noBtn.addEventListener("click", (e) => e.preventDefault());
 });
