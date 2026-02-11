@@ -1,12 +1,11 @@
+/* 💖 Body and Card */
 body {
   margin: 0;
   font-family: 'Dancing Script', cursive;
   background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
@@ -18,7 +17,6 @@ body {
   border-radius: 28px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-
   max-width: 420px;
   width: 100%;
   position: relative;
@@ -47,42 +45,38 @@ p {
 
 /* 💕 BUTTONS */
 .buttons {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  height: 80px;
   margin-top: 20px;
-  gap: 15px;
 }
 
 .buttons button {
-  flex: 1;
-  padding: 12px 0;
+  position: absolute;
+  width: 120px;
+  height: 45px;
   border: none;
   border-radius: 25px;
   font-size: 18px;
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
-
-  /* ✨ Shadow + Smooth effect */
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover effect (desktop) */
-.buttons button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-/* 💗 YES Button */
+/* YES button */
 #yesBtn {
   background: linear-gradient(45deg, #ff4d6d, #ff758f);
   color: white;
+  left: 20px;
+  top: 15px;
 }
 
-/* 😅 NO Button */
+/* NO button */
 #noBtn {
   background: linear-gradient(45deg, #adb5bd, #ced4da);
   color: white;
+  right: 20px;
+  top: 15px;
 }
 
 /* 💋 Photo animation */
@@ -118,7 +112,7 @@ p {
   }
 }
 
-/* 😈 Shake animation (if used) */
+/* 😈 Shake animation (optional) */
 .shake {
   animation: shake 0.25s infinite;
 }
