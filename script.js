@@ -3,13 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const music = document.getElementById("bgMusic");
 
-  // Play music once after any user interaction
+  // Play music once on any user interaction (for mobile/autoplay)
   function playMusicOnce() {
     if (!music.played.length) { // play only once
       music.currentTime = 0;
       music.play().catch(() => console.log("Autoplay blocked"));
     }
-    // Remove listener after first interaction
     document.removeEventListener("click", playMusicOnce);
     document.removeEventListener("touchstart", playMusicOnce);
   }
@@ -23,14 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(e.touches.length > 0) {
       const touch = e.touches[0];
       const btnRect = noBtn.getBoundingClientRect();
-      if (
-        touch.clientX < btnRect.left ||
-        touch.clientX > btnRect.right ||
-        touch.clientY < btnRect.top ||
-        touch.clientY > btnRect.bottom
-      ) {
-        moveNoButton(touch.clientX, touch.clientY);
-      }
+      moveNoButton(touch.clientX, touch.clientY);
     }
   });
 
@@ -54,11 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   noBtn.addEventListener("click", e => e.preventDefault());
 
-  // YES button plays music immediately and navigates
+  // 💕 YES button: play music immediately and navigate to Yes page
   yesBtn.addEventListener("click", () => {
     music.currentTime = 0;
     music.play().catch(() => console.log("Autoplay blocked"));
-    localStorage.setItem("playMusic", "true");
-    window.location.href = "yes.html";
+    localStorage.setItem("playMusic", "true"); // flag to continue on Yes page
+    setTimeout(() => {
+      window.location.href = "yes.html";
+    }, 50); // slight delay to ensure music starts
   });
 });
