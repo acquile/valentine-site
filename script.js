@@ -5,16 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // YES button
   yesBtn.addEventListener("click", () => {
+    // Ensure audio plays
     music.volume = 1;
     music.muted = false;
     music.loop = true;
-
-    // Play music on first click
     music.play().catch(err => console.log("Play failed:", err));
 
-    // Hide the first card
+    // Remove the original card (includes NO button)
     const mainCard = document.getElementById("mainCard");
-    mainCard.style.display = "none";
+    mainCard.remove();
 
     // Create the "I love you" card safely
     const newCard = document.createElement("div");
@@ -24,31 +23,23 @@ document.addEventListener("DOMContentLoaded", () => {
       <img src="yes.jfif" alt="Us kissing" class="photo" />
       <h1>I love you so much! 💖</h1>
       <p>You’re my forever Valentine 💕</p>
-      <div class="buttons">
-        <button id="noBtn" class="no">No 😅</button>
-      </div>
     `;
 
     document.body.appendChild(newCard);
-
-    // Update noBtn reference for new card
-    const newNoBtn = newCard.querySelector("#noBtn");
-    if (newNoBtn) {
-      newNoBtn.addEventListener("mouseover", moveNoButton);
-      newNoBtn.addEventListener("click", moveNoButton);
-    }
 
     // Start floating hearts
     startHearts();
   });
 
-  // NO button dodging
+  // NO button dodges
   noBtn.addEventListener("mouseover", moveNoButton);
   noBtn.addEventListener("click", moveNoButton);
 
   function moveNoButton() {
-    // Use the currently visible card
-    const card = document.getElementById("mainCard") || document.querySelector(".card:last-child");
+    // Use the visible card
+    const card = document.getElementById("mainCard");
+    if (!card) return; // stop if mainCard is gone
+
     const cardRect = card.getBoundingClientRect();
     const btnRect = this.getBoundingClientRect();
 
