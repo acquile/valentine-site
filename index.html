@@ -9,20 +9,6 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-  <audio id="yesSound" src="love.mp3"></audio>
-
-<script>
-  const yesBtn = document.getElementById("yesBtn");
-  const sound = document.getElementById("yesSound");
-
-  yesBtn.addEventListener("click", () => {
-    sound.play();
-    setTimeout(() => {
-      window.location.href = "yes.html";
-    }, 1500); // wait 1.5 sec so music plays first
-  });
-</script>
-
 <body>
   <div class="card">
     <img src="her.jfif" alt="Us" class="photo" />
@@ -34,6 +20,22 @@
       <button id="noBtn" class="no">No 😅</button>
     </div>
   </div>
+
+  <!-- 🎵 Audio -->
+  <audio id="yesSound" src="love.mp3"></audio>
+
+  <!-- 🎶 Yes button sound + redirect -->
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const sound = document.getElementById("yesSound");
+
+    yesBtn.addEventListener("click", () => {
+      sound.play();
+      setTimeout(() => {
+        window.location.href = "yes.html";
+      }, 1500);
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
