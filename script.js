@@ -1,46 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const mainCard = document.getElementById("mainCard"); // the card container
   const yesSound = document.getElementById("yesSound");
   const isYesPage = !!yesSound;
 
   // ---------- NO BUTTON ----------
   function dodgeNoButton() {
-    if (!mainCard) return;
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-    // Get card position
-    const cardRect = mainCard.getBoundingClientRect();
+    // Margins to keep button fully visible
+    const margin = 20;
 
-    // Limits: stay inside card padding, above photo
-    const minX = 10;
-    const maxX = cardRect.width - noBtn.offsetWidth - 10;
+    const maxX = window.innerWidth - btnWidth - margin;
+    const maxY = window.innerHeight - btnHeight - margin;
+    const minX = margin;
+    const minY = margin;
 
-    const minY = 10; // slightly below top of card
-    const maxY = cardRect.height - noBtn.offsetHeight - 60; // above buttons/photo bottom
-
-    // Random position within card
+    // Random position inside visible viewport
     const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
     const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
 
-    noBtn.style.position = "absolute";
+    // Move button
+    noBtn.style.position = "fixed"; // use fixed so it's relative to viewport
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
   }
 
   if (noBtn) {
+    // Click dodge
     noBtn.addEventListener("click", e => {
       e.preventDefault();
       dodgeNoButton();
     });
 
+    // Mobile touch dodge
     noBtn.addEventListener("touchstart", e => {
       e.preventDefault();
       dodgeNoButton();
     });
   }
-
-  // Hover shake is controlled by CSS
 
   // ---------- YES BUTTON ----------
   if (yesBtn) {
