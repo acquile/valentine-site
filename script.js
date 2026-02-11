@@ -3,38 +3,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const music = document.getElementById("bgMusic");
 
-  // ✅ No button dodges the cursor and shakes on hover
-  document.addEventListener("mousemove", (e) => {
-    const btnRect = noBtn.getBoundingClientRect();
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+  // ✅ Desktop: dodge with mouse
+  document.addEventListener("mousemove", e => {
+    moveNoButton(e.clientX, e.clientY);
+  });
 
-    const offset = 100; // distance from cursor before button moves
+  // ✅ Mobile: dodge with touch
+  document.addEventListener("touchmove", e => {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // Only dodge if the touch is NOT inside the button
+      if (
+        touch.clientX < btnRect.left ||
+        touch.clientX > btnRect.right ||
+        touch.clientY < btnRect.top ||
+        touch.clientY > btnRect.bottom
+      ) {
+        moveNoButton(touch.clientX, touch.clientY);
+      }
+    }
+  });
+
+  function moveNoButton(x, y) {
+    const btnRect = noBtn.getBoundingClientRect();
+    const offset = 100; // distance from cursor/finger before moving
     const btnCenterX = btnRect.left + btnRect.width / 2;
     const btnCenterY = btnRect.top + btnRect.height / 2;
-    const dx = mouseX - btnCenterX;
-    const dy = mouseY - btnCenterY;
+
+    const dx = x - btnCenterX;
+    const dy = y - btnCenterY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
     if (distance < offset) {
-      // move button away from cursor
       const moveX = -dx / distance * 80; // horizontal push
       const moveY = -dy / distance * 40; // vertical push
       noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
     } else {
-      noBtn.style.transform = `translate(0, 0)`; // reset
+      noBtn.style.transform = "translate(0, 0)";
     }
-  });
+  }
 
-  // Prevent accidental clicks on No button
-  noBtn.addEventListener("click", (e) => e.preventDefault());
+  // Prevent accidental click on No button
+  noBtn.addEventListener("click", e => e.preventDefault());
 
-  // 💕 YES button plays music and navigates
+  // Yes button plays music and navigates
   yesBtn.addEventListener("click", () => {
-    // Save that music should play on Yes page
     localStorage.setItem("playMusic", "true");
-
-    // Navigate to Yes page
     window.location.href = "yes.html";
   });
 });
