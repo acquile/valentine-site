@@ -9,22 +9,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Margins to keep button fully visible
+    // margins to keep visible
     const margin = 20;
-
     const maxX = window.innerWidth - btnWidth - margin;
     const maxY = window.innerHeight - btnHeight - margin;
     const minX = margin;
     const minY = margin;
 
-    // Random position inside visible viewport
+    // random position
     const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
     const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
 
-    // Move button
-    noBtn.style.position = "fixed"; // use fixed so it's relative to viewport
+    noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
+
+    // Remove shake class if not hovered
+    if (!noBtn.matches(":hover")) {
+      noBtn.style.animation = "none";
+    }
   }
 
   if (noBtn) {
@@ -38,6 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
     noBtn.addEventListener("touchstart", e => {
       e.preventDefault();
       dodgeNoButton();
+    });
+
+    // Add shake on hover
+    noBtn.addEventListener("mouseenter", () => {
+      noBtn.style.animation = "shake 0.5s infinite";
+    });
+
+    // Remove shake when not hovering
+    noBtn.addEventListener("mouseleave", () => {
+      noBtn.style.animation = "none";
     });
   }
 
