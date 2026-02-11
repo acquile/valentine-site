@@ -57,12 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
+      // Safari mobile requires user gesture for audio
       const music = new Audio("love.mp3");
       music.loop = true;
-      music.play().catch(err => console.log("Autoplay blocked"));
+      music.play().catch(err => console.log("Safari/iOS requires user gesture"));
 
+      // Set flag for yes page
       localStorage.setItem("playMusic", "true");
 
+      // Navigate after a short delay
       setTimeout(() => {
         window.location.href = "yes.html";
       }, 50);
@@ -71,8 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---------- YES PAGE MUSIC ----------
   if (isYesPage && localStorage.getItem("playMusic") === "true") {
+    // Play music on Yes page if user clicked Yes
     yesSound.currentTime = 0;
-    yesSound.play().catch(err => console.log("Autoplay blocked"));
+    yesSound.play().catch(err => console.log("Safari/iOS requires user gesture"));
+
+    // Remove flag so it doesn't auto-play next time
     localStorage.removeItem("playMusic");
   }
 });
