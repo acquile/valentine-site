@@ -22,7 +22,6 @@ body {
   position: relative;
   z-index: 10;
   box-sizing: border-box;
-  /* Fixed height removed for flexibility */
 }
 
 .photo {
@@ -32,6 +31,8 @@ body {
   border-radius: 18px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
+  position: relative;
+  z-index: 5; /* ensures buttons are above photo */
 }
 
 h1 {
@@ -50,7 +51,7 @@ p {
   position: relative;
   height: 80px;
   margin-top: 20px;
-  overflow: hidden; /* ✅ Prevent No button from pushing layout */
+  overflow: hidden; /* prevent layout shifts */
 }
 
 .buttons button {
@@ -64,7 +65,8 @@ p {
   font-family: 'Dancing Script', cursive;
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  top: 15px; /* keeps buttons vertically aligned */
+  top: 15px; /* initial vertical alignment */
+  z-index: 20; /* ensures buttons are above photo */
 }
 
 /* YES button */
