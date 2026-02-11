@@ -21,7 +21,12 @@ body {
   width: 100%;
   position: relative;
   z-index: 10;
+
+  overflow: hidden;      /* Added: prevent button overflow causing scroll */
+  height: 520px;         /* Added: fixed height to keep stable layout */
+  box-sizing: border-box; /* Added for consistent sizing */
 }
+
 
 .photo {
   width: 100%;
