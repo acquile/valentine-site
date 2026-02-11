@@ -51,10 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-      // Only set flag for Yes page music
-      localStorage.setItem("playMusic", "true");
+      // ✅ Play music immediately (user gesture triggers it)
+      const music = new Audio("love.mp3");
+      music.loop = true;
+      music.play().catch(err => console.log("Autoplay blocked on mobile:", err));
 
-      // Navigate to Yes page
+      // Navigate to Yes page after tiny delay
       setTimeout(() => {
         window.location.href = "yes.html";
       }, 50);
@@ -62,10 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------- YES PAGE MUSIC ----------
-  if (isYesPage && localStorage.getItem("playMusic") === "true") {
-    // Play music only on Yes page
+  if (isYesPage) {
+    // Autoplay music only if element exists (desktop may need this)
     yesSound.currentTime = 0;
     yesSound.play().catch(err => console.log("Autoplay blocked on Safari/iOS"));
-    localStorage.removeItem("playMusic"); // reset flag
   }
 });
