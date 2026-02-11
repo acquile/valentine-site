@@ -1,4 +1,3 @@
-/* 💖 Body and Card */
 body {
   margin: 0;
   font-family: 'Dancing Script', cursive;
@@ -6,84 +5,86 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+  height: 100vh;
 }
 
 .card {
   background: white;
-  padding: 25px;
-  border-radius: 28px;
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   max-width: 420px;
-  width: 100%;
-  position: relative;
-  z-index: 10;
-  box-sizing: border-box;
+  width: 90%;
+  position: relative;   /* ensures hearts stay behind */
+  z-index: 10;          /* card above hearts */
 }
 
 .photo {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 360px;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 16px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
-  position: relative;
-  z-index: 5; /* ensures buttons are above photo */
 }
 
 h1 {
   font-family: 'Parisienne', cursive;
   color: #d6336c;
-  font-size: 32px;
-  margin-bottom: 10px;
+  font-size: 42px;
+  margin-bottom: 20px;
 }
 
-p {
-  font-size: 18px;
-}
-
-/* 💕 BUTTONS */
 .buttons {
   position: relative;
-  height: 80px;
-  margin-top: 20px;
-  overflow: hidden; /* prevent layout shifts */
+  height: 60px;
 }
 
-.buttons button {
-  position: absolute;
-  width: 120px;
-  height: 45px;
+/* Make box-sizing consistent */
+button {
+  box-sizing: border-box; /* Added */
+  padding: 10px 20px;
   border: none;
   border-radius: 25px;
   font-size: 18px;
   cursor: pointer;
+  position: absolute;
   font-family: 'Dancing Script', cursive;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  top: 15px; /* initial vertical alignment */
-  z-index: 20; /* ensures buttons are above photo */
 }
 
-/* YES button */
+/* Button hover scale effect */
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 #yesBtn {
-  background: linear-gradient(45deg, #ff4d6d, #ff758f);
+  background: #ff4d6d;
   color: white;
-  left: 20px;
+  left: 40px;
+  width: 100px !important; /* Enforce fixed size */
+  height: 40px !important;
+  min-width: 100px !important;
+  min-height: 40px !important;
 }
 
-/* NO button */
 #noBtn {
-  background: linear-gradient(45deg, #adb5bd, #ced4da);
+  background: #adb5bd;
   color: white;
-  right: 20px;
+  right: 40px;
+  transition: all 0.2s ease;
+
+  /* 💡 Fixed size to prevent resizing */
+  width: 100px !important;
+  height: 40px !important;
+  min-width: 100px !important;
+  min-height: 40px !important;
+  box-sizing: border-box;
 }
 
-/* 💋 Photo animation */
+/* 💋 Kiss photo animation */
 @keyframes popIn {
   0% {
     transform: scale(0.7);
@@ -102,7 +103,7 @@ p {
   font-size: 24px;
   animation: floatUp 6s linear forwards;
   pointer-events: none;
-  z-index: 1;
+  z-index: 1;  /* behind card */
 }
 
 @keyframes floatUp {
@@ -116,7 +117,7 @@ p {
   }
 }
 
-/* 😈 Shake animation (optional) */
+/* 😈 Shake animation for No button */
 .shake {
   animation: shake 0.25s infinite;
 }
