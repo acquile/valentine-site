@@ -1,11 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
+  const music = document.getElementById("bgMusic");
 
-  // ❌ Remove redirect here — handled in HTML now
-  // yesBtn.addEventListener("click", () => {
-  //   window.location.href = "yes.html";
-  // });
+  // ✅ YES button
+  yesBtn.addEventListener("click", () => {
+    music.volume = 1;
+    music.muted = false;
+
+    music.play().catch(err => console.log("Play failed:", err));
+
+    // Hide first card
+    document.getElementById("mainCard").style.display = "none";
+
+    // Create new card safely (no innerHTML rewrite!)
+    const newCard = document.createElement("div");
+    newCard.className = "card";
+
+    newCard.innerHTML = `
+      <img src="yes.jfif" alt="Us kissing" class="photo" />
+      <h1>I love you so much! 💖</h1>
+      <p>You’re my forever Valentine 💕</p>
+    `;
+
+    document.body.appendChild(newCard);
+
+    startHearts();
+  });
 
   // 😈 NO button runs away
   noBtn.addEventListener("mouseover", moveNoButton);
@@ -25,10 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
     noBtn.style.position = "absolute";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
+  }
 
-    // 💥 Shake animation
-    noBtn.classList.remove("shake");
-    void noBtn.offsetWidth;
-    noBtn.classList.add("shake");
+  // 💖 Floating hearts
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }, 400);
   }
 });
