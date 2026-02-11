@@ -45,7 +45,7 @@ p {
   font-size: 18px;
 }
 
-/* 💕 Buttons for index page */
+/* 💕 Buttons */
 .buttons {
   position: relative;
   height: 80px;
@@ -62,20 +62,27 @@ p {
   font-size: 18px;
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   top: 15px;
   z-index: 20;
 }
 
-/* YES button */
+/* ✅ YES button styling */
 #yesBtn {
   background: linear-gradient(45deg, #ff4d6d, #ff758f);
   color: white;
   left: 20px;
+  box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4), 0 12px 25px rgba(255, 77, 109, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* NO button */
+/* Hover effect for Yes button */
+#yesBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4), 0 15px 35px rgba(255, 77, 109, 0.2);
+}
+
+/* ✅ NO button styling */
 #noBtn {
   background: linear-gradient(45deg, #adb5bd, #ced4da);
   color: white;
@@ -85,7 +92,7 @@ p {
   border-radius: 25px;
   font-size: 18px;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 15px rgba(173, 181, 189, 0.4), 0 12px 25px rgba(173, 181, 189, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -117,7 +124,7 @@ p {
 
 @keyframes shake {
   0% { transform: translate(0, 0); }
-  25% { transform: translate(-10px, -5px); } /* added vertical shake */
+  25% { transform: translate(-10px, -5px); }
   50% { transform: translate(10px, 5px); }
   75% { transform: translate(-10px, -5px); }
   100% { transform: translate(0, 0); }
