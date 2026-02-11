@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- ✅ VERY IMPORTANT FOR MOBILE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Be My Valentine 💖</title>
 
   <!-- Romantic Fonts -->
@@ -12,15 +16,17 @@
 <body>
 
   <!-- 🎵 Background Music -->
-  <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="card" id="mainCard">
     <img src="her.jfif" alt="Us" class="photo" />
     <h1>Hi Tet, Will you be my Valentine? 💗</h1>
 
     <div class="buttons">
-      <button id="yesBtn" class="yes">Yes 💕</button>
-      <button id="noBtn" class="no">No 😅</button>
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 😅</button>
     </div>
   </div>
 
