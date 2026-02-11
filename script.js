@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const card = document.getElementById("mainCard");
   const music = document.getElementById("bgMusic");
 
-  // 🎵 Play music on first tap (mobile safe)
-  document.body.addEventListener("click", () => {
-    music.play().catch(() => {});
-  }, { once: true });
-
   // 😈 Make NO button run away
   noBtn.addEventListener("touchstart", moveButton);
   noBtn.addEventListener("mouseover", moveButton);
@@ -28,8 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     noBtn.style.right = "auto";
   }
 
-  // 💕 YES button goes to next page
+  // 💕 YES button goes to next page AND plays music
   yesBtn.addEventListener("click", () => {
+    music.play().catch(() => {}); // play music only when Yes clicked
     window.location.href = "yes.html";
   });
 
