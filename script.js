@@ -3,23 +3,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const music = document.getElementById("bgMusic");
 
-  // ✅ No button slides left/right on hover and shakes infinitely
-  let moveRight = true;
-  const slideDistance = 100; // px
-  const originalRight = parseInt(window.getComputedStyle(noBtn).right, 10);
+  // ✅ No button dodges the cursor and shakes on hover
+  document.addEventListener("mousemove", (e) => {
+    const btnRect = noBtn.getBoundingClientRect();
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
-  function slideButton() {
-    if (moveRight) {
-      noBtn.style.right = (originalRight + slideDistance) + "px";
+    const offset = 100; // distance from cursor before button moves
+
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const btnCenterY = btnRect.top + btnRect.height / 2;
+
+    const dx = mouseX - btnCenterX;
+    const dy = mouseY - btnCenterY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < offset) {
+      // move button away from cursor
+      const moveX = -dx / distance * 80; // horizontal push
+      const moveY = -dy / distance * 40; // vertical push
+      noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
     } else {
-      noBtn.style.right = originalRight + "px";
+      noBtn.style.transform = `translate(0, 0)`; // reset
     }
-    moveRight = !moveRight;
-  }
+  });
 
-  noBtn.addEventListener("mouseover", slideButton);
-  noBtn.addEventListener("touchstart", slideButton);
-  noBtn.addEventListener("click", (e) => e.preventDefault()); // prevent accidental click
+  // Prevent accidental clicks on No button
+  noBtn.addEventListener("click", (e) => e.preventDefault());
 
   // 💕 YES button plays music instantly and navigates
   yesBtn.addEventListener("click", () => {
