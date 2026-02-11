@@ -1,58 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const yesSound = document.getElementById("yesSound"); // on Yes page
-  const isYesPage = !!yesSound; // true if we are on Yes page
+  const mainCard = document.getElementById("mainCard"); // the card container
+  const yesSound = document.getElementById("yesSound");
+  const isYesPage = !!yesSound;
 
   // ---------- NO BUTTON ----------
-  // Function to dodge No button randomly
   function dodgeNoButton() {
-    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    if (!mainCard) return;
 
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+    // Get card position
+    const cardRect = mainCard.getBoundingClientRect();
 
-    noBtn.style.transition = "transform 0.3s ease";
-    noBtn.style.transform = `translate(${randomX - noBtn.offsetLeft}px, ${randomY - noBtn.offsetTop}px)`;
+    // Limits: stay inside card padding, above photo
+    const minX = 10;
+    const maxX = cardRect.width - noBtn.offsetWidth - 10;
+
+    const minY = 10; // slightly below top of card
+    const maxY = cardRect.height - noBtn.offsetHeight - 60; // above buttons/photo bottom
+
+    // Random position within card
+    const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
+    const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
   }
 
   if (noBtn) {
-    // Click dodge
     noBtn.addEventListener("click", e => {
       e.preventDefault();
       dodgeNoButton();
     });
-    // Mobile touch dodge
+
     noBtn.addEventListener("touchstart", e => {
       e.preventDefault();
       dodgeNoButton();
     });
   }
 
-  // Optional: hover shake (desktop only)
-  if (noBtn) {
-    noBtn.addEventListener("mouseenter", () => {
-      noBtn.classList.add("shake");
-    });
-    noBtn.addEventListener("mouseleave", () => {
-      noBtn.classList.remove("shake");
-    });
-  }
+  // Hover shake is controlled by CSS
 
   // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-      // Play music immediately on index (if desired)
       const music = new Audio("love.mp3");
       music.loop = true;
-      music.currentTime = 0;
-      music.play().catch(err => console.log("Autoplay blocked:", err));
+      music.play().catch(err => console.log("Autoplay blocked"));
 
-      // Set flag to continue music on Yes page
       localStorage.setItem("playMusic", "true");
 
-      // Navigate to Yes page
       setTimeout(() => {
         window.location.href = "yes.html";
       }, 50);
@@ -62,9 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- YES PAGE MUSIC ----------
   if (isYesPage && localStorage.getItem("playMusic") === "true") {
     yesSound.currentTime = 0;
-    yesSound.play().catch(err => console.log("Autoplay blocked:", err));
-
-    // Clear flag so it doesn't restart if Yes page is reloaded
+    yesSound.play().catch(err => console.log("Autoplay blocked"));
     localStorage.removeItem("playMusic");
   }
 });
