@@ -7,8 +7,8 @@ body {
   justify-content: center;
   align-items: center;
 
-  min-height: 100vh;   /* better for mobile */
-  padding: 20px;       /* space on edges */
+  min-height: 100vh;
+  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -27,7 +27,7 @@ body {
 
 .photo {
   width: 100%;
-  aspect-ratio: 4 / 5;   /* responsive instead of fixed height */
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 18px;
   margin-bottom: 15px;
@@ -37,7 +37,7 @@ body {
 h1 {
   font-family: 'Parisienne', cursive;
   color: #d6336c;
-  font-size: 32px;   /* better for phones */
+  font-size: 32px;
   margin-bottom: 10px;
 }
 
@@ -45,7 +45,47 @@ p {
   font-size: 18px;
 }
 
-/* 💋 Kiss photo animation */
+/* 💕 BUTTONS */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  font-family: 'Dancing Script', cursive;
+
+  /* ✨ Shadow + Smooth effect */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect (desktop) */
+.buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* 💗 YES Button */
+#yesBtn {
+  background: linear-gradient(45deg, #ff4d6d, #ff758f);
+  color: white;
+}
+
+/* 😅 NO Button */
+#noBtn {
+  background: linear-gradient(45deg, #adb5bd, #ced4da);
+  color: white;
+}
+
+/* 💋 Photo animation */
 @keyframes popIn {
   0% {
     transform: scale(0.7);
@@ -76,4 +116,17 @@ p {
     transform: translateY(-110vh) scale(1.5);
     opacity: 0;
   }
+}
+
+/* 😈 Shake animation (if used) */
+.shake {
+  animation: shake 0.25s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3px, 2px); }
+  50% { transform: translate(3px, -2px); }
+  75% { transform: translate(-2px, -3px); }
+  100% { transform: translate(0, 0); }
 }
