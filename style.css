@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden; /* hide hearts going out of screen */
+  overflow: hidden; /* prevents hearts from scrolling */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -27,8 +27,8 @@ body {
 
 .photo {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+  max-height: 420px; /* same for both pages */
+  object-fit: cover; /* crops/keeps aspect ratio consistent */
   border-radius: 18px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
@@ -43,6 +43,55 @@ h1 {
 
 p {
   font-size: 18px;
+}
+
+/* 💕 Buttons for index page */
+.buttons {
+  position: relative;
+  height: 80px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.buttons button {
+  position: absolute;
+  width: 120px;
+  height: 45px;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  font-family: 'Dancing Script', cursive;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  top: 15px;
+  z-index: 20;
+}
+
+/* YES button */
+#yesBtn {
+  background: linear-gradient(45deg, #ff4d6d, #ff758f);
+  color: white;
+  left: 20px;
+}
+
+/* NO button */
+#noBtn {
+  background: linear-gradient(45deg, #adb5bd, #ced4da);
+  color: white;
+  right: 20px;
+  top: 15px;
+  position: absolute;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 😈 NO button shake on hover */
+#noBtn:hover {
+  animation: shake 0.5s infinite;
 }
 
 /* 💗 Floating hearts */
@@ -64,4 +113,34 @@ p {
 @keyframes floatUp {
   0% { transform: translateY(0) scale(1); opacity: 1; }
   100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-10px, -5px); } /* added vertical shake */
+  50% { transform: translate(10px, 5px); }
+  75% { transform: translate(-10px, -5px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* 🔹 Responsive adjustments */
+@media (max-width: 480px) {
+  .card {
+    max-width: 90%;
+    padding: 20px;
+  }
+  .photo {
+    max-height: 300px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  p {
+    font-size: 16px;
+  }
+  .buttons button {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+  }
 }
