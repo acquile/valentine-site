@@ -18,7 +18,7 @@ body {
   border-radius: 28px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-  max-width: 420px;
+  max-width: 420px; /* same as Yes page */
   width: 100%;
   position: relative;
   z-index: 10;
@@ -27,8 +27,10 @@ body {
 
 .photo {
   width: 100%;
-  max-height: 420px; /* same for both pages */
-  object-fit: cover; /* crops/keeps aspect ratio consistent */
+  height: auto;
+  max-height: 500px; /* matches Yes page height */
+  min-height: 500px; /* ensures index matches Yes page */
+  object-fit: cover; /* keeps aspect ratio without stretching */
   border-radius: 18px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
@@ -73,10 +75,8 @@ p {
   color: white;
   left: 20px;
   box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4), 0 12px 25px rgba(255, 77, 109, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover effect for Yes button */
 #yesBtn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4), 0 15px 35px rgba(255, 77, 109, 0.2);
@@ -96,7 +96,6 @@ p {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 😈 NO button shake on hover */
 #noBtn:hover {
   animation: shake 0.5s infinite;
 }
@@ -137,7 +136,8 @@ p {
     padding: 20px;
   }
   .photo {
-    max-height: 300px;
+    max-height: 400px; /* same as Yes page on mobile */
+    min-height: 400px;
   }
   h1 {
     font-size: 26px;
