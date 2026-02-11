@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // YES button
   yesBtn.addEventListener("click", () => {
-    // Ensure audio plays
+    // Play music
     music.volume = 1;
     music.muted = false;
     music.loop = true;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainCard = document.getElementById("mainCard");
     mainCard.remove();
 
-    // Create the "I love you" card safely
+    // Create the "I love you" card
     const newCard = document.createElement("div");
     newCard.className = "card";
 
@@ -31,21 +31,23 @@ document.addEventListener("DOMContentLoaded", () => {
     startHearts();
   });
 
-  // NO button dodges
+  // NO button dodging
   noBtn.addEventListener("mouseover", moveNoButton);
   noBtn.addEventListener("click", moveNoButton);
 
   function moveNoButton() {
-    // Use the visible card
     const card = document.getElementById("mainCard");
-    if (!card) return; // stop if mainCard is gone
+    if (!card) return; // stop if card is gone
+
+    // Use stable button size to prevent resizing
+    const btnWidth = this.offsetWidth;
+    const btnHeight = this.offsetHeight;
 
     const cardRect = card.getBoundingClientRect();
-    const btnRect = this.getBoundingClientRect();
+    const padding = 10;
 
-    const padding = 10; // avoid edges
-    const maxX = cardRect.width - btnRect.width - padding;
-    const maxY = cardRect.height - btnRect.height - padding;
+    const maxX = cardRect.width - btnWidth - padding;
+    const maxY = cardRect.height - btnHeight - padding;
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     this.style.left = randomX + "px";
     this.style.top = randomY + "px";
 
-    // Optional shake animation
+    // Shake animation
     this.classList.remove("shake");
     void this.offsetWidth;
     this.classList.add("shake");
