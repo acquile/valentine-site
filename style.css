@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow: hidden; /* hide hearts going out of screen */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -31,8 +32,6 @@ body {
   border-radius: 18px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
-  position: relative;
-  z-index: 5; /* ensures buttons are above photo */
 }
 
 h1 {
@@ -46,96 +45,23 @@ p {
   font-size: 18px;
 }
 
-/* 💕 BUTTONS */
-.buttons {
-  position: relative;
-  height: 80px;
-  margin-top: 20px;
-  overflow: hidden; /* prevent layout shifts */
-}
-
-.buttons button {
-  position: absolute;
-  width: 120px;
-  height: 45px;
-  border: none;
-  border-radius: 25px;
-  font-size: 18px;
-  cursor: pointer;
-  font-family: 'Dancing Script', cursive;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  top: 15px; /* vertical alignment */
-  z-index: 20; /* above photo */
-}
-
-/* YES button */
-#yesBtn {
-  background: linear-gradient(45deg, #ff4d6d, #ff758f);
-  color: white;
-  left: 20px;
-}
-
-/* NO button - steady initially, shakes diagonally on hover */
-#noBtn {
-  background: linear-gradient(45deg, #adb5bd, #ced4da);
-  color: white;
-  right: 20px;
-  top: 15px;
-  position: absolute;
-  border-radius: 25px;
-  width: 120px;
-  height: 45px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Shake animation only on hover */
-#noBtn:hover {
-  animation: shake 0.5s infinite;
-}
-
-/* 💋 Photo pop-in animation */
-@keyframes popIn {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 /* 💗 Floating hearts */
 .heart {
   position: fixed;
   bottom: -20px;
   font-size: 24px;
-  animation: floatUp 6s linear forwards;
+  animation: floatUp linear forwards;
   pointer-events: none;
   z-index: 1;
 }
 
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh) scale(1.5);
-    opacity: 0;
-  }
+/* Animations */
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-/* 😈 Shake animation for NO button - diagonal */
-@keyframes shake {
-  0%   { transform: translate(0, 0); }
-  20%  { transform: translate(-8px, -4px); }
-  40%  { transform: translate(8px, 4px); }
-  60%  { transform: translate(-8px, 2px); }
-  80%  { transform: translate(8px, -2px); }
-  100% { transform: translate(0, 0); }
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
 }
