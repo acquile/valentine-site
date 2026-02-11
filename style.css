@@ -65,8 +65,8 @@ p {
   font-family: 'Dancing Script', cursive;
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  top: 15px; /* initial vertical alignment */
-  z-index: 20; /* ensures buttons are above photo */
+  top: 15px; /* vertical alignment */
+  z-index: 20; /* above photo */
 }
 
 /* YES button */
@@ -76,26 +76,26 @@ p {
   left: 20px;
 }
 
-/* NO button shake & slide */
+/* NO button - steady initially, shakes on hover */
 #noBtn {
   background: linear-gradient(45deg, #adb5bd, #ced4da);
   color: white;
-  right: 20px; /* initial position */
+  right: 20px;
   top: 15px;
-  z-index: 20;
   position: absolute;
   border-radius: 25px;
-  width: 120px;
-  height: 45px;
-  font-family: 'Dancing Script', cursive;
   font-size: 18px;
   cursor: pointer;
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: right 0.3s ease; /* smooth slide left/right */
-  animation: shake 0.5s infinite; /* infinite shake */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 💋 Photo animation */
+/* Shake animation only on hover */
+#noBtn:hover {
+  animation: shake 0.5s infinite;
+}
+
+/* 💋 Photo pop-in animation */
 @keyframes popIn {
   0% {
     transform: scale(0.7);
