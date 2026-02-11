@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const music = document.getElementById("bgMusic");
+  const music = document.getElementById("bgMusic"); // background music
+  const noSound = new Audio("no.mp3"); // sound when No is clicked (optional)
 
-  // Play music once on any user interaction (for mobile/autoplay)
+  // ✅ Play music once on any user interaction (mobile autoplay)
   function playMusicOnce() {
-    if (!music.played.length) { // play only once
+    if (!music.played.length) {
       music.currentTime = 0;
       music.play().catch(() => console.log("Autoplay blocked"));
     }
@@ -19,18 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // NO button dodge logic (desktop + mobile)
   document.addEventListener("mousemove", e => moveNoButton(e.clientX, e.clientY));
   document.addEventListener("touchmove", e => {
-    if(e.touches.length > 0) {
+    if(e.touches.length > 0){
       const touch = e.touches[0];
-      const btnRect = noBtn.getBoundingClientRect();
       moveNoButton(touch.clientX, touch.clientY);
     }
   });
 
-  function moveNoButton(x, y) {
+  function moveNoButton(x, y){
     const btnRect = noBtn.getBoundingClientRect();
     const offset = 100;
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
+    const btnCenterX = btnRect.left + btnRect.width/2;
+    const btnCenterY = btnRect.top + btnRect.height/2;
     const dx = x - btnCenterX;
     const dy = y - btnCenterY;
     const distance = Math.sqrt(dx*dx + dy*dy);
@@ -44,7 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  noBtn.addEventListener("click", e => e.preventDefault());
+  // NO button click (plays sound but does NOT trigger Yes music)
+  noBtn.addEventListener("click", e => {
+    e.preventDefault(); // prevent accidental click
+    noSound.currentTime = 0;
+    noSound.play().catch(() => console.log("No sound blocked"));
+  });
 
   // 💕 YES button: play music immediately and navigate to Yes page
   yesBtn.addEventListener("click", () => {
