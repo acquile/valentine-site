@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainCard = document.getElementById("mainCard");
   const loveCard = document.getElementById("loveCard");
 
+  let heartInterval; // prevent multiple intervals
+
   // ---------- NO BUTTON ----------
   function dodgeNoButton() {
     const btnWidth = noBtn.offsetWidth;
@@ -33,24 +35,28 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       dodgeNoButton();
     });
-
-    noBtn.addEventListener("mouseenter", () => {
-      noBtn.style.animation = "shake 0.5s infinite";
-    });
-
-    noBtn.addEventListener("mouseleave", () => {
-      noBtn.style.animation = "none";
-    });
   }
 
-  // ---------- HEART ANIMATION ----------
+  // ---------- HEART ANIMATION (UPGRADED) ----------
   function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = "💗";
+
+    // Random heart emoji
+    const hearts = ["💗", "💖", "💘", "💝", "💕"];
+    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+
+    // Random position
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+    // Random size
+    heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+
+    // Random speed
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
     document.body.appendChild(heart);
+
     setTimeout(() => heart.remove(), 7000);
   }
 
@@ -58,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
 
-      // 🎵 Play music
       if (bgMusic) {
         bgMusic.play().catch(err => console.log("Playback blocked:", err));
       }
@@ -76,14 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
         loveCard.style.opacity = "0";
         loveCard.style.transition = "opacity 0.8s ease";
 
-        // Force reflow (VERY IMPORTANT)
-        void loveCard.offsetWidth;
-
-        // Fade in
+        void loveCard.offsetWidth; // force reflow
         loveCard.style.opacity = "1";
 
-        // Start hearts
-        setInterval(createHeart, 400);
+        // Prevent multiple intervals if clicked again
+        if (!heartInterval) {
+          heartInterval = setInterval(() => {
+            for (let i = 0; i < 4; i++) { // 4 hearts per burst
+              createHeart();
+            }
+          }, 200);
+        }
 
       }, 600);
     });
