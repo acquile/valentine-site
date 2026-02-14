@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- ✅ IMPORTANT FOR MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Be My Valentine 💖</title>
 
@@ -11,11 +10,13 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <!-- 🎵 Background Music -->
   <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
 
+  <!-- 💌 QUESTION CARD -->
   <div class="card" id="mainCard">
     <img src="her.jfif" alt="Us" class="photo" />
     <h1>Hi Tet, Will you be my Valentine? 💗</h1>
@@ -26,7 +27,13 @@
     </div>
   </div>
 
-  <!-- External JS -->
+  <!-- 💖 LOVE CARD (Hidden Initially) -->
+  <div class="card" id="loveCard" style="display: none; opacity: 0;">
+    <img src="yes.jfif" alt="Us kissing" class="photo" />
+    <h1>I love you so much! 💖</h1>
+    <p>You’re my forever Valentine 💕</p>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
