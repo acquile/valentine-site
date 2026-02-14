@@ -75,7 +75,6 @@ p {
   color: white;
   left: 20px;
   box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4), 0 12px 25px rgba(255, 77, 109, 0.2);
-  animation: pulse 2s infinite;
 }
 
 #yesBtn:hover {
@@ -111,19 +110,6 @@ p {
   z-index: 1;
 }
 
-/* ✨ Sparkle effect */
-.sparkle {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #fff, #ffd1dc);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.8;
-  animation: sparkleMove linear forwards;
-}
-
 /* Animations */
 @keyframes popIn {
   0% { transform: scale(0.7); opacity: 0; }
@@ -141,25 +127,6 @@ p {
   50% { transform: translate(10px, 5px); }
   75% { transform: translate(-10px, -5px); }
   100% { transform: translate(0, 0); }
-}
-
-/* ❤️ Pulse animation for Yes button */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* ✨ Zoom-in animation for love card */
-@keyframes zoomIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* ✨ Sparkle move animation */
-@keyframes sparkleMove {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
 }
 
 /* 🔹 Responsive adjustments */
