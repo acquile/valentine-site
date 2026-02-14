@@ -40,23 +40,49 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------- YES BUTTON ----------
-  if (yesBtn) {
+ // ---------- YES BUTTON ----------
+if (yesBtn) {
   yesBtn.addEventListener("click", () => {
-    const audio = new Audio("love.mp3");
-    audio.play().then(() => {
-      setTimeout(() => {
-        window.location.href = "yes.html";
-      }, 500); // small delay so music starts first
-    }).catch(err => console.log("Playback failed:", err));
+    const bgMusic = document.getElementById("bgMusic");
+
+    if (bgMusic) {
+      bgMusic.play().then(() => {
+
+        // Save playback position
+        sessionStorage.setItem("musicTime", bgMusic.currentTime);
+        sessionStorage.setItem("musicPlaying", "true");
+
+        // Smooth fade out
+        document.body.style.transition = "opacity 0.6s ease";
+        document.body.style.opacity = "0";
+
+        setTimeout(() => {
+          window.location.href = "yes.html";
+        }, 600);
+
+      }).catch(err => console.log("Playback failed:", err));
+    }
   });
 }
 
+// ---------- YES PAGE MUSIC ----------
+if (yesSound && sessionStorage.getItem("musicPlaying") === "true") {
 
-  // ---------- YES PAGE MUSIC ----------
-  if (yesSound && localStorage.getItem("playMusic") === "true") {
-    yesSound.currentTime = 0;
-    yesSound.play().catch(err => console.log("Mobile blocked:", err));
-    localStorage.removeItem("playMusic"); // cleanup
+  const savedTime = sessionStorage.getItem("musicTime");
+
+  if (savedTime) {
+    yesSound.currentTime = parseFloat(savedTime);
   }
+
+  yesSound.play().catch(err => console.log("Mobile blocked:", err));
+
+  // Fade in effect
+  document.body.style.opacity = "0";
+  document.body.style.transition = "opacity 0.6s ease";
+
+  setTimeout(() => {
+    document.body.style.opacity = "1";
+  }, 50);
+}
+
 });
