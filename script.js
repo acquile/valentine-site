@@ -54,28 +54,35 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => heart.remove(), 7000);
   }
 
-  // ---------- YES BUTTON (SEAMLESS) ----------
+  // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
 
-      // 🎵 Start music (works on mobile because it's user-triggered)
+      // 🎵 Play music
       if (bgMusic) {
         bgMusic.play().catch(err => console.log("Playback blocked:", err));
       }
 
-      // Fade out question card
+      // Fade out main card
       mainCard.style.transition = "opacity 0.6s ease";
       mainCard.style.opacity = "0";
 
       setTimeout(() => {
-        mainCard.style.display = "none";
-        loveCard.style.display = "block";
 
-        // Fade in love card
+        mainCard.style.display = "none";
+
+        // Show love card properly
+        loveCard.style.display = "block";
+        loveCard.style.opacity = "0";
         loveCard.style.transition = "opacity 0.8s ease";
+
+        // Force reflow (VERY IMPORTANT)
+        void loveCard.offsetWidth;
+
+        // Fade in
         loveCard.style.opacity = "1";
 
-        // Start floating hearts
+        // Start hearts
         setInterval(createHeart, 400);
 
       }, 600);
