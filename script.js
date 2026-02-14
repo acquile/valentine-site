@@ -54,21 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => heart.remove(), 7000);
   }
 
-  // ---------- SPARKLE ANIMATION ----------
-  function createSparkle() {
-    const sparkle = document.createElement("div");
-    sparkle.classList.add("sparkle");
-    sparkle.style.left = Math.random() * 100 + "vw";
-    sparkle.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 5000);
-  }
-
   // ---------- YES BUTTON (SEAMLESS) ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
 
-      // 🎵 Start music (works on mobile)
+      // 🎵 Start music (works on mobile because it's user-triggered)
       if (bgMusic) {
         bgMusic.play().catch(err => console.log("Playback blocked:", err));
       }
@@ -79,18 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         mainCard.style.display = "none";
-
-        // Fade & Zoom in love card
         loveCard.style.display = "block";
-        loveCard.style.opacity = "0";
-        loveCard.style.transform = "scale(0.8)";
-        loveCard.style.animation = "zoomIn 0.8s ease forwards";
+
+        // Fade in love card
+        loveCard.style.transition = "opacity 0.8s ease";
+        loveCard.style.opacity = "1";
 
         // Start floating hearts
         setInterval(createHeart, 400);
-
-        // Start sparkles
-        setInterval(createSparkle, 300);
 
       }, 600);
     });
