@@ -42,14 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---------- YES BUTTON ----------
   if (yesBtn) {
-    yesBtn.addEventListener("click", () => {
-      // 🔐 Set flag for Yes page
-      localStorage.setItem("playMusic", "true");
+  yesBtn.addEventListener("click", () => {
+    const audio = new Audio("love.mp3");
+    audio.play().then(() => {
+      setTimeout(() => {
+        window.location.href = "yes.html";
+      }, 500); // small delay so music starts first
+    }).catch(err => console.log("Playback failed:", err));
+  });
+}
 
-      // Go to yes.html
-      window.location.href = "yes.html";
-    });
-  }
 
   // ---------- YES PAGE MUSIC ----------
   if (yesSound && localStorage.getItem("playMusic") === "true") {
