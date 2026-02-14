@@ -2,35 +2,57 @@
 body {
   margin: 0;
   font-family: 'Dancing Script', cursive;
-  background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
+  background: linear-gradient(-45deg, #ffd1dc, #ffe6f0, #ffcce0, #ffeaf4);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden; /* prevents hearts from scrolling */
+  overflow: hidden;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
+}
+
+/* ✨ Soft grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .card {
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 28px;
   text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-  max-width: 420px; /* same as Yes page */
+  box-shadow: 0 20px 50px rgba(214, 51, 108, 0.25);
+  max-width: 420px;
   width: 100%;
   position: relative;
   z-index: 10;
   box-sizing: border-box;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(214, 51, 108, 0.35);
 }
 
 .photo {
   width: 100%;
   height: auto;
-  max-height: 500px; /* matches Yes page height */
-  min-height: 500px; /* ensures index matches Yes page */
-  object-fit: cover; /* keeps aspect ratio without stretching */
+  max-height: 500px;
+  min-height: 500px;
+  object-fit: cover;
   border-radius: 18px;
   margin-bottom: 15px;
   animation: popIn 0.8s ease-out;
@@ -41,10 +63,12 @@ h1 {
   color: #d6336c;
   font-size: 32px;
   margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(214, 51, 108, 0.2);
 }
 
 p {
   font-size: 18px;
+  color: #6c2c44;
 }
 
 /* 💕 Buttons */
@@ -64,36 +88,30 @@ p {
   font-size: 18px;
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
   top: 15px;
   z-index: 20;
 }
 
-/* ✅ YES button styling */
+/* ✅ YES button */
 #yesBtn {
   background: linear-gradient(45deg, #ff4d6d, #ff758f);
   color: white;
   left: 20px;
-  box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4), 0 12px 25px rgba(255, 77, 109, 0.2);
+  box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
 }
 
 #yesBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4), 0 15px 35px rgba(255, 77, 109, 0.2);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(255, 77, 109, 0.5);
 }
 
-/* ✅ NO button styling */
+/* ✅ NO button */
 #noBtn {
   background: linear-gradient(45deg, #adb5bd, #ced4da);
   color: white;
   right: 20px;
-  top: 15px;
-  position: absolute;
-  border-radius: 25px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(173, 181, 189, 0.4), 0 12px 25px rgba(173, 181, 189, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(173, 181, 189, 0.4);
 }
 
 #noBtn:hover {
@@ -108,6 +126,19 @@ p {
   animation: floatUp linear forwards;
   pointer-events: none;
   z-index: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.7));
+}
+
+/* ✨ Sparkles */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Animations */
@@ -123,28 +154,43 @@ p {
 
 @keyframes shake {
   0% { transform: translate(0, 0); }
-  25% { transform: translate(-10px, -5px); }
-  50% { transform: translate(10px, 5px); }
-  75% { transform: translate(-10px, -5px); }
+  25% { transform: translate(-8px, -4px); }
+  50% { transform: translate(8px, 4px); }
+  75% { transform: translate(-8px, -4px); }
   100% { transform: translate(0, 0); }
 }
 
-/* 🔹 Responsive adjustments */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.6); }
+}
+
+/* 🔹 Responsive */
 @media (max-width: 480px) {
   .card {
     max-width: 90%;
     padding: 20px;
   }
+
   .photo {
-    max-height: 400px; /* same as Yes page on mobile */
+    max-height: 400px;
     min-height: 400px;
   }
+
   h1 {
     font-size: 26px;
   }
+
   p {
     font-size: 16px;
   }
+
   .buttons button {
     width: 100px;
     height: 40px;
