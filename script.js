@@ -40,30 +40,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
- // ---------- YES BUTTON ----------
+// ---------- YES BUTTON ----------
 if (yesBtn) {
   yesBtn.addEventListener("click", () => {
     const bgMusic = document.getElementById("bgMusic");
 
     if (bgMusic) {
       bgMusic.play().then(() => {
-
-        // Save playback position
-        sessionStorage.setItem("musicTime", bgMusic.currentTime);
-        sessionStorage.setItem("musicPlaying", "true");
-
-        // Smooth fade out
-        document.body.style.transition = "opacity 0.6s ease";
-        document.body.style.opacity = "0";
-
+        // small delay so music starts before redirect
         setTimeout(() => {
           window.location.href = "yes.html";
-        }, 600);
-
+        }, 300);
       }).catch(err => console.log("Playback failed:", err));
     }
   });
 }
+
 
 // ---------- YES PAGE MUSIC ----------
 if (yesSound && sessionStorage.getItem("musicPlaying") === "true") {
