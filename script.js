@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const yesSound = document.getElementById("yesSound"); // exists only on yes.html
+  const bgMusic = document.getElementById("bgMusic");
+  const mainCard = document.getElementById("mainCard");
+  const loveCard = document.getElementById("loveCard");
 
   // ---------- NO BUTTON ----------
   function dodgeNoButton() {
@@ -40,41 +43,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-// ---------- YES BUTTON ----------
-if (yesBtn) {
-  yesBtn.addEventListener("click", () => {
-    const bgMusic = document.getElementById("bgMusic");
-
-    if (bgMusic) {
-      bgMusic.play().then(() => {
-        // small delay so music starts before redirect
-        setTimeout(() => {
-          window.location.href = "yes.html";
-        }, 300);
-      }).catch(err => console.log("Playback failed:", err));
-    }
-  });
-}
-
-
-// ---------- YES PAGE MUSIC ----------
-if (yesSound && sessionStorage.getItem("musicPlaying") === "true") {
-
-  const savedTime = sessionStorage.getItem("musicTime");
-
-  if (savedTime) {
-    yesSound.currentTime = parseFloat(savedTime);
+  // ---------- HEART ANIMATION ----------
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
   }
 
-  yesSound.play().catch(err => console.log("Mobile blocked:", err));
+  // ---------- YES BUTTON (SEAMLESS) ----------
+  if (yesBtn) {
+    yesBtn.addEventListener("click", () => {
 
-  // Fade in effect
-  document.body.style.opacity = "0";
-  document.body.style.transition = "opacity 0.6s ease";
+      // 🎵 Start music (works on mobile because it's user-triggered)
+      if (bgMusic) {
+        bgMusic.play().catch(err => console.log("Playback blocked:", err));
+      }
 
-  setTimeout(() => {
-    document.body.style.opacity = "1";
-  }, 50);
-}
+      // Fade out question card
+      mainCard.style.transition = "opacity 0.6s ease";
+      mainCard.style.opacity = "0";
+
+      setTimeout(() => {
+        mainCard.style.display = "none";
+        loveCard.style.display = "block";
+
+        // Fade in love card
+        loveCard.style.transition = "opacity 0.8s ease";
+        loveCard.style.opacity = "1";
+
+        // Start floating hearts
+        setInterval(createHeart, 400);
+
+      }, 600);
+    });
+  }
 
 });
