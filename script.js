@@ -1,31 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const yesSound = document.getElementById("yesSound");
-  const isYesPage = !!yesSound; // true if on yes.html
+  const yesSound = document.getElementById("yesSound"); // exists only on yes.html
 
   // ---------- NO BUTTON ----------
   function dodgeNoButton() {
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    const margin = 20; // keep button visible
+    const margin = 20;
     const maxX = window.innerWidth - btnWidth - margin;
     const maxY = window.innerHeight - btnHeight - margin;
-    const minX = margin;
-    const minY = margin;
 
-    const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
-    const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
     noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-
-    // Stop shaking if not hovered
-    if (!noBtn.matches(":hover")) {
-      noBtn.style.animation = "none";
-    }
   }
 
   if (noBtn) {
@@ -51,22 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-      // ✅ Play music immediately (user gesture triggers it)
-      const music = new Audio("love.mp3");
-      music.loop = true;
-      music.play().catch(err => console.log("Autoplay blocked on mobile:", err));
+      // 🔐 Set flag for Yes page
+      localStorage.setItem("playMusic", "true");
 
-      // Navigate to Yes page after tiny delay
-      setTimeout(() => {
-        window.location.href = "yes.html";
-      }, 50);
+      // Go to yes.html
+      window.location.href = "yes.html";
     });
   }
 
   // ---------- YES PAGE MUSIC ----------
-  if (isYesPage) {
-    // Autoplay music only if element exists (desktop may need this)
+  if (yesSound && localStorage.getItem("playMusic") === "true") {
     yesSound.currentTime = 0;
-    yesSound.play().catch(err => console.log("Autoplay blocked on Safari/iOS"));
+    yesSound.play().catch(err => console.log("Mobile blocked:", err));
+    localStorage.removeItem("playMusic"); // cleanup
   }
 });
