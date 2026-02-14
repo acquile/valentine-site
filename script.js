@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    const margin = 20; // keep button visible
+    const margin = 20;
     const maxX = window.innerWidth - btnWidth - margin;
     const maxY = window.innerHeight - btnHeight - margin;
     const minX = margin;
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
-    // Stop shaking if not hovered
     if (!noBtn.matches(":hover")) {
       noBtn.style.animation = "none";
     }
@@ -51,22 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- YES BUTTON ----------
   if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-      // ✅ Play music immediately (user gesture triggers it)
-      const music = new Audio("love.mp3");
-      music.loop = true;
-      music.play().catch(err => console.log("Autoplay blocked on mobile:", err));
-
-      // Navigate to Yes page after tiny delay
-      setTimeout(() => {
-        window.location.href = "yes.html";
-      }, 50);
+      // 🚫 DO NOT play music here (mobile will kill it)
+      window.location.href = "yes.html";
     });
   }
 
   // ---------- YES PAGE MUSIC ----------
   if (isYesPage) {
-    // Autoplay music only if element exists (desktop may need this)
-    yesSound.currentTime = 0;
-    yesSound.play().catch(err => console.log("Autoplay blocked on Safari/iOS"));
+    // ✅ Mobile-safe: play on first tap
+    document.body.addEventListener("click", () => {
+      yesSound.currentTime = 0;
+      yesSound.play().catch(err =>
+        console.log("Autoplay blocked:", err)
+      );
+    }, { once: true });
   }
 });
